@@ -1,9 +1,9 @@
 === Plugin Name ===
-Contributors: (this should be a list of wordpress.org userid's)
+Contributors: orangerdev
 Donate link: https://wp-expert-indonesia.com
-Tags: comments, spam
+Tags: theme, user
 Requires at least: 3.0.1
-Tested up to: 3.4
+Tested up to: 4.9.8
 Stable tag: 4.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -12,10 +12,7 @@ Here is a short description of the plugin.  This should be no more than 150 char
 
 == Description ==
 
-This is the long description.  No limit, and you can use Markdown (as well as in the following sections).
-
-For backwards compatibility, if this section is missing, the full length of the short description will be used, and
-Markdown parsed.
+Create custom function for pointfinder wordpress theme
 
 A few notes about the sections above:
 
