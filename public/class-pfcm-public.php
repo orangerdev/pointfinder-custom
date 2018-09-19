@@ -59,21 +59,11 @@ class Pfcm_Public {
 	 *
 	 * @since    1.0.0
 	 */
-	public function enqueue_styles() {
-
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Pfcm_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Pfcm_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/pfcm-public.css', array(), $this->version, 'all' );
+	public function enqueue_styles()
+	{
+		wp_register_style 	('owl-theme'	,'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css',[],'2.3.4','all');
+		wp_register_style	('owlcarousel'	,'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css',['owl-theme'],'2.3.4','all');
+		wp_enqueue_style	($this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/pfcm-public.css',['owlcarousel'], $this->version, 'all' );
 
 	}
 
@@ -82,22 +72,30 @@ class Pfcm_Public {
 	 *
 	 * @since    1.0.0
 	 */
-	public function enqueue_scripts() {
+	public function enqueue_scripts()
+	{
+		wp_register_script	('owlcarousel'	,'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js',['jquery'],'2.3.4',true);
+		wp_enqueue_script	( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/pfcm-public.js',['jquery','owlcarousel'], $this->version, true );
 
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Pfcm_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Pfcm_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
+	}
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/pfcm-public.js', array( 'jquery' ), $this->version, false );
+	/**
+	 * Display image
+	 * @param  [type] $images  [description]
+	 * @param  [type] $post_id [description]
+	 * @return [type]          [description]
+	 */
+	public function display_image($featured_images,$post_id)
+	{
+		$images = get_post_meta($post_id,'webbupointfinder_item_images');
 
+		if(1 < count($images)) :
+			ob_start();
+			require PFCM_DIR.'/public/partials/shop-image-carousel.php';
+			$featured_images = ob_get_contents();
+			ob_end_clean();
+		endif;
+		return $featured_images;
 	}
 
 }

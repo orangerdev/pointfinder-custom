@@ -35,7 +35,8 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'PLUGIN_NAME_VERSION', '1.0.0' );
+define( 'PFCM'		, '1.0.0' );
+define( 'PFCM_DIR'	, plugin_dir_path(__FILE__));
 
 /**
  * The code that runs during plugin activation.
@@ -79,4 +80,18 @@ function run_pfcm() {
 	$plugin->run();
 
 }
+
 run_pfcm();
+
+function __debug()
+{
+	$bt     = debug_backtrace();
+	$caller = array_shift($bt);
+	?><pre class='sejoli-debug'><?php
+	print_r([
+		"file"  => $caller["file"],
+		"line"  => $caller["line"],
+		"args"  => func_get_args()
+	]);
+	?></pre><?php
+}

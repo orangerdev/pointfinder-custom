@@ -121,6 +121,7 @@ class Pfcm {
 		 * side of the site.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-pfcm-public.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/submit.php';
 
 		$this->loader = new Pfcm_Loader();
 
@@ -170,8 +171,14 @@ class Pfcm {
 
 		$plugin_public = new Pfcm_Public( $this->get_plugin_name(), $this->get_version() );
 
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+		$this->loader->add_action( 'wp_enqueue_scripts',	$plugin_public, 'enqueue_styles' );
+		$this->loader->add_action( 'wp_enqueue_scripts', 	$plugin_public, 'enqueue_scripts' );
+		$this->loader->add_filter( 'pfcm/display-image',	$plugin_public, 'display_image',99,2);
+
+		$submit = new \PFCM\Frontend\Submit;
+
+		//$this->loader->add_filter( 'pfcm/front-end-submit/after-image-upload-html'	,$submit,'display_custom_fields');
+		//$this->loader->add_action( 'wp_insert_post'	,$submit	,'save_item',9999,3);
 
 	}
 
